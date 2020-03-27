@@ -1,0 +1,13 @@
+id, tipo, pregunta, puntaje
+1, bool, "¿Tiene tos?", 2
+2, bool, "¿Tiene escalofrios?", 2
+3, bool, "¿Tiene diarrea?", 2
+4, bool, "¿Tiene dolor de garganta?", 2
+5, bool, "¿Tiene dolor de cuerpo en general?", 2
+6, bool, "¿Tiene dolores de cabeza?", 2
+7, bool, "¿Tiene fiebre?", 2
+8, bool, "¿Tiene dificultad para respirar?", 3
+9, bool, "¿Tiene fatiga?", 3
+10, bool, "¿Ha viajado este año?", 3
+11, bool, "Ha estado en areas afectadas por el COVID-19 (Coronavirus)?", 3
+12, bool, "Ha tenido contacto directo o cuidado a algún paciente positivo para COVID-19", 3
