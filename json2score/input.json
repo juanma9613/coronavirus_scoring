@@ -1,60 +1,32 @@
 {
-    "entry_id": 1,
-    "name": "Juan Manuel",
-    "last_name": "Muñoz",
-    "national_id": 1039466478,
-    "country": "Colombia",
-    "state/province": "Antioquia",
-    "city": "Medellín",
-    "age": 24,
-    "questions": [
-        {
-            "id": 1,
-            "answer": 1
+    "answers": {
+        "age": "70 - 79",
+        "postalCode": "5003",
+        "hasBeenTested": true,
+        "testResult": "PENDING",
+        "sex": "FEMALE",
+        "symptoms": {
+            "DRY_COUGH": false,
+            "EXHAUSTION": false,
+            "FEVER": false,
+            "HEAVY_BREATHING": false,
+            "MUSCLE_ACHING": false,
+            "DIARRHEA": false,
+            "HEADACHE": false,
+            "SORE_THROAT": false,
+            "NO_TASTE": false,
+            "NO_SMELL": false,
+            "SLIME_COUGH": true,
+            "RUNNY_NOSE": false,
+            "NAUSEA_OR_VOMITING": false
         },
-        {
-            "id": 2,
-            "answer": 0
-        },
-        {
-            "id": 3,
-            "answer": 0
-        },
-        {
-            "id": 4,
-            "answer": 1
-        },
-        {
-            "id": 5,
-            "answer": 0
-        },
-        {
-            "id": 6,
-            "answer": 1
-        },
-        {
-            "id": 7,
-            "answer": 1
-        },
-        {
-            "id": 8,
-            "answer": 0
-        },
-        {
-            "id": 9,
-            "answer": 0
-        },
-        {
-            "id": 10,
-            "answer": 0
-        },
-        {
-            "id": 11,
-            "answer": 1
-        },
-        {
-            "id": 12,
-            "answer": 0
-        }
-    ]
+        "symptomStart": "2020-02-01",
+        "hasBeenInContactWithInfected": false,
+        "bodyTemperature": "39.5",
+        "smokingHabit": "USED_TO",
+        "isolationStatus": "NOT_IN_ISOLATION",
+        "diagnosedWithOtherConditions": false,
+        "submissionTimestamp": 1585363315713,
+        "phone": "3215136201"
+    }
 }

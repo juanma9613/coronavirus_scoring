@@ -1,0 +1,24 @@
+service: covid-scoring-ms
+
+plugins:
+  - serverless-offline-python
+  - serverless-python-requirements
+  - serverless-dotenv-plugin
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+provider:
+  name: aws
+  runtime: python3.6
+
+functions:
+  score:
+    handler: handler.score
+    events:
+      - http:
+          path: /score
+          method: post
+          cors: true
+  

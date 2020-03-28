@@ -1,0 +1,17 @@
+{
+  "name": "covid-scoring-ms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^2.1.1",
+    "serverless-offline-python": "^3.22.1",
+    "serverless-python-requirements": "^5.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Covid Bryant",
+  "license": "ISC"
+}
