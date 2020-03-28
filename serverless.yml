@@ -12,6 +12,7 @@ custom:
 provider:
   name: aws
   runtime: python3.6
+  profile: coronavirus
 
 functions:
   score:
