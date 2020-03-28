@@ -127,12 +127,10 @@ def score(event, context):
         #body = json.loads(event['body']) ## Uncomment at the end
         with open('./json2score/input.json', 'r') as handle:
             body = json.load(handle)
-        questions = body['answers']
-        print(questions)
+        questions = body
         # other parameters
         scorer = Scorer()
         scoring_result = scorer.score(questions)
-
         response = {
             "statusCode": 200,
             "body": json.dumps(scoring_result),
@@ -140,7 +138,7 @@ def score(event, context):
         }
 
     except Exception as e:
-        traceback.print_exc()
+        #traceback.print_exc()
         response = {
             "statusCode": 500,
             "body": "Failed to score",
