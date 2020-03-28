@@ -1,46 +1,47 @@
-question_id,type_id,question,answer,score,comparison
-0,2,age,0 - 9,0,eq
-0,2,age,10 - 19,0,eq
-0,2,age,20 - 29,0,eq
-0,2,age,30 - 39,0,eq
-0,2,age,40 - 49,0,eq
-0,2,age,50 - 59,1,eq
-0,2,age,60 - 69,1,eq
-0,2,age,70 - 79,2,eq
-0,2,age,80 - 89,2,eq
-0,2,age,90 - 99,2,eq
-1,4,postalCode,,0,
-2,0,hasBeenTested,1,2,eq
-2,2,testResult,POSITIVE,2,eq
-2,2,testResult,NEGATIVE,0,eq
-2,2,testResult,PENDING,1,eq
-3,2,sex,MALE,0,eq
-3,2,sex,FEMALE,0,eq
-3,2,sex,OTHER,0,eq
-4,0,symptoms_DRY_COUGH,1,2,eq
-5,0,symptoms_EXHAUSTION,1,2,eq
-6,0,symptoms_FEVER,1,2,eq
-7,0,symptoms_HEAVY_BREATHING,1,2,eq
-8,0,symptoms_MUSCLE_ACHING,1,2,eq
-9,0,symptoms_DIARRHEA,1,2,eq
-10,0,symptoms_HEADACHE,1,2,eq
-11,0,symptoms_SORE_THROAT,1,2,eq
-12,0,symptoms_NO_TASTE,1,2,eq
-13,0,symptoms_NO_SMELL,1,2,eq
-14,0,symptoms_SLIME_COUGH,1,2,eq
-15,0,symptoms_RUNNY_NOSE,1,2,eq
-16,0,symptoms_NAUSEA_OR_VOMITING,1,2,eq
-17,4,symptomStart,,0,
-18,0,hasBeenInContactWithInfected,1,2,eq
-19,3,bodyTemperature,37.8,3,gt
-20,2,smokingHabit,CURRENTLY,2,eq
-20,2,smokingHabit,USED_TO,1,eq
-20,2,smokingHabit,NEVER,0,eq
-21,2,isolationStatus,NOT_IN_ISOLATION,3,eq
-21,2,isolationStatus,ISOLATION_DUE_TO_TRAVEL,2,eq
-21,2,isolationStatus,ISOLATION_DUE_TO_CONTACT,2,eq
-21,2,isolationStatus,ISOLATION_DUE_TO_COVID_19,3,eq
-21,2,isolationStatus,ISOLATION_DUE_TO_GOVERNMENT_ORDERS,0,eq
-22,0,diagnosedWithOtherConditions,1,3
-23,4,submissionTimestamp,,0,
-24,4,phone,,0,
+question_id,type,question,answer,score,comparison
+0,choice,age,0 - 9,0,eq
+0,choice,age,10 - 19,0,eq
+0,choice,age,20 - 29,0,eq
+0,choice,age,30 - 39,0,eq
+0,choice,age,40 - 49,0,eq
+0,choice,age,50 - 59,1,eq
+0,choice,age,60 - 69,1,eq
+0,choice,age,70 - 79,2,eq
+0,choice,age,80 - 89,2,eq
+0,choice,age,90 - 99,2,eq
+1,text,postalCode,,0,
+2,bool,hasBeenTested,1,2,eq
+2,choice,testResult,POSITIVE,2,eq
+2,choice,testResult,NEGATIVE,0,eq
+2,choice,testResult,PENDING,1,eq
+3,choice,sex,MALE,0,eq
+3,choice,sex,FEMALE,0,eq
+3,choice,sex,OTHER,0,eq
+4,bool,symptoms_DRY_COUGH,1,2,eq
+5,bool,symptoms_EXHAUSTION,1,2,eq
+6,bool,symptoms_FEVER,1,2,eq
+7,bool,symptoms_HEAVY_BREATHING,1,2,eq
+8,bool,symptoms_MUSCLE_ACHING,1,2,eq
+9,bool,symptoms_DIARRHEA,1,2,eq
+10,bool,symptoms_HEADACHE,1,2,eq
+11,bool,symptoms_SORE_THROAT,1,2,eq
+12,bool,symptoms_NO_TASTE,1,2,eq
+13,bool,symptoms_NO_SMELL,1,2,eq
+14,bool,symptoms_SLIME_COUGH,1,2,eq
+15,bool,symptoms_RUNNY_NOSE,1,2,eq
+16,bool,symptoms_NAUSEA_OR_VOMITING,1,2,eq
+17,bool,symptomStart,,0,
+18,bool,hasBeenInContactWithInfected,1,2,eq
+19,float,bodyTemperature,38.0,1,gt
+19,float,bodyTemperature,40.0,3,gt
+20,choice,smokingHabit,CURRENTLY,2,eq
+20,choice,smokingHabit,USED_TO,1,eq
+20,choice,smokingHabit,NEVER,0,eq
+21,choice,isolationStatus,NOT_IN_ISOLATION,3,eq
+21,choice,isolationStatus,ISOLATION_DUE_TO_TRAVEL,2,eq
+21,choice,isolationStatus,ISOLATION_DUE_TO_CONTACT,2,eq
+21,choice,isolationStatus,ISOLATION_DUE_TO_COVID_19,3,eq
+21,choice,isolationStatus,ISOLATION_DUE_TO_GOVERNMENT_ORDERS,0,eq
+22,bool,diagnosedWithOtherConditions,1,3
+23,choice,submissionTimestamp,,0,
+24,choice,phone,,0,

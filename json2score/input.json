@@ -21,7 +21,7 @@
     },
     "symptomStart": "2020-02-01",
     "hasBeenInContactWithInfected": false,
-    "bodyTemperature": "39.5",
+    "bodyTemperature": "40.5",
     "smokingHabit": "USED_TO",
     "isolationStatus": "NOT_IN_ISOLATION",
     "diagnosedWithOtherConditions": true,
