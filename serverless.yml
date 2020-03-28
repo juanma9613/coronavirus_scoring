@@ -7,7 +7,14 @@ plugins:
 
 custom:
   pythonRequirements:
-    dockerizePip: non-linux
+    dockerizePip: true
+    zip: true
+    layer: true
+
+package:
+  exclude:
+    - venv/**
+    - node_modules/**
 
 provider:
   name: aws
@@ -17,6 +24,8 @@ provider:
 functions:
   score:
     handler: handler.score
+    layers:
+      - {Ref: PythonRequirementsLambdaLayer}
     events:
       - http:
           path: /score

@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 
 QUESTION_TABLE_PATH = "./json2score/questions.csv"
 
@@ -29,7 +28,7 @@ class Scorer():
         question_table = pd.read_csv(self.question_table_path, header=0,
                                      index_col='question_id', delimiter=',',
                                      dtype={'type': str, 'question': str, 
-                                            'answer': str, 'score': np.int32, 
+                                            'answer': str, 'score': int,
                                             'comparison': str}, engine='c', 
                                             memory_map=True, float_precision=None)
         return question_table
