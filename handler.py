@@ -1,13 +1,12 @@
 import json
-import traceback
+#import traceback
 from utils import Scorer
 
 def score(event, context):
     try:
-        # body = json.loads(event['body']) ## Uncomment at the end
-        with open('./json2score/input.json', 'r') as handle:
-            body = json.load(handle)
-        questions = body
+        questions = json.loads(event['body']) ## Uncomment at the end
+        # with open('./json2score/input.json', 'r') as handle:
+        #     body = json.load(handle)
         scorer = Scorer()
         scoring_result = scorer.score(questions)
         response = {
@@ -17,7 +16,7 @@ def score(event, context):
         }
 
     except Exception as e:
-        traceback.print_exc()
+        #traceback.print_exc()
         response = {
             "statusCode": 500,
             "body": "Failed to score",
