@@ -8,9 +8,9 @@
         "DRY_COUGH": false,
         "EXHAUSTION": false,
         "FEVER": false,
-        "HEAVY_BREATHING": false,
+        "HEAVY_BREATHING": true,
         "MUSCLE_ACHING": false,
-        "DIARRHEA": false,
+        "DIARRHEA": true,
         "HEADACHE": false,
         "SORE_THROAT": false,
         "NO_TASTE": false,
@@ -24,7 +24,7 @@
     "bodyTemperature": "39.5",
     "smokingHabit": "USED_TO",
     "isolationStatus": "NOT_IN_ISOLATION",
-    "diagnosedWithOtherConditions": false,
+    "diagnosedWithOtherConditions": true,
     "submissionTimestamp": 1585363315713,
     "phone": "3215136201"
 }

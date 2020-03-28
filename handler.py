@@ -124,11 +124,10 @@ class Scorer():
 
 def score(event, context):
     try:
-        #body = json.loads(event['body']) ## Uncomment at the end
-        with open('./json2score/input.json', 'r') as handle:
-            body = json.load(handle)
+        body = json.loads(event['body']) ## Uncomment at the end
+        # with open('./json2score/input.json', 'r') as handle:
+        #     body = json.load(handle)
         questions = body
-        # other parameters
         scorer = Scorer()
         scoring_result = scorer.score(questions)
         response = {
