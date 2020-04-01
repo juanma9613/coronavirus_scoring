@@ -14,7 +14,7 @@ def score(event, context):
         }
 
     except Exception as e:
-        traceback.print_exc()
+        traceback.print_stack(e)
         response = {
             "statusCode": 500,
             "body": "Failed to score",
