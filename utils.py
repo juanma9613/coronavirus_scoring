@@ -112,13 +112,15 @@ class Scorer():
             else:
                 answer_q = new_questions[q]
                 q_attr = self.question_table_complete.loc[self.question_table_complete['question'] == q, :]
+                if (len(q_attr))==0:
+                    print("Question not in db: ", q)
+                    continue
                 is_valid, type_q = self.validate(q_attr, answer_q)
                 if is_valid:
                     scoring += self.score_answer(q_attr, answer_q, type_q)
                 else:
-                    print("Answer not valid")
+                    print("Answer not valid: ", answer_q)
                     print("Question", q)
-                    print("answer_q", answer_q)
 
         # Special case according to doctor
         sum_clinical=0

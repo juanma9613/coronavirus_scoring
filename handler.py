@@ -1,5 +1,5 @@
 import json
-#import traceback
+import traceback
 from utils import Scorer
 
 def score(event, context):
@@ -14,7 +14,7 @@ def score(event, context):
         }
 
     except Exception as e:
-        #traceback.print_exc()
+        traceback.print_exc()
         response = {
             "statusCode": 500,
             "body": "Failed to score",
