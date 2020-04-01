@@ -23,19 +23,21 @@ class Scorer():
         self.question_table_path = QUESTION_TABLE_PATH
         self.question_table_complete = self._load_questions_table()
         self.not_score_questions = self._get_not_scoring_questions()
+        self.epidemiological_group = ['hasBeenInContactWithInfected']
+        self.clinical_group = ['symptoms_FEVER', 'symptoms_HEAVY_BREATHING', 'symptoms_DRY_COUGH']
 
     def _load_questions_table(self):
         question_table = pd.read_csv(self.question_table_path, header=0,
                                      index_col='question_id', delimiter=',',
                                      dtype={'type': str, 'question': str, 
                                             'answer': str, 'score': int,
-                                            'comparison': str}, engine='c', 
-                                            memory_map=True, float_precision=None)
+                                            'comparison': str, 'valid_q': int}, 
+                                            engine='c', memory_map=True, 
+                                            float_precision=None)
         return question_table
 
     def _get_not_scoring_questions(self):
-        not_score_questions = self.question_table_complete[self.question_table_complete['answer'].isnull(
-        )]
+        not_score_questions = self.question_table_complete[self.question_table_complete['valid_q']==0]
         return not_score_questions['question'].tolist()
 
     def validate(self, q_attr, answer_q):
@@ -117,4 +119,17 @@ class Scorer():
                     print("Answer not valid")
                     print("Question", q)
                     print("answer_q", answer_q)
-        return {'scoring': float(scoring)}
+
+        # Special case according to doctor
+        sum_clinical=0
+        for clinical_q in self.clinical_group:
+            if new_questions[clinical_q]==True:
+                sum_clinical+=1
+        sum_epidemiology=0
+        for epidemiological_q in self.epidemiological_group:
+            if new_questions[epidemiological_q]==True:
+                sum_epidemiology+=1
+        special_addition=0
+        if sum_clinical>1 or (sum_clinical==1 and sum_epidemiology>=1):
+            special_addition+=8
+        return {'scoring': float(scoring+special_addition)}
