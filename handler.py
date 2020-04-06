@@ -4,7 +4,9 @@ from utils import Scorer
 
 def score(event, context):
     try:
-        questions = json.loads(event['body'])
+        #questions = json.loads(event['body'])
+        with open("./json2score/input.json", 'r') as f:
+            questions = json.load(f)
         scorer = Scorer()
         scoring_result = scorer.score(questions)
         response = {

@@ -1,16 +1,16 @@
 {
-  "age": "20 - 29",
+  "age": "27 - 59",
   "bodyTemperature": "",
   "diagnosedWith": {
     "ASTHMA": false,
     "AUTOIMMUNEDISEASE": false,
-    "CHRONICKIDNEYDISEASE": false,
+    "KIDNEYDISEASE": false,
     "CHRONICLUNGDISEASE": false,
     "DIABETES": true,
-    "HYPERTENSION": true,
-    "ISCHEMICHEARTDISEASE": true
+    "HYPERTENSIONARTERIAL": true,
+    "IMMUNOSUPRESSION": true,
+    "CORONARYHEARTDISEASE": true
   },
-  "diagnosedWithOtherConditions": false,
   "hasBeenInContactWithInfected": false,
   "hasBeenTested": false,
   "isolationStatus": "ISOLATION_DUE_TO_GOVERNMENT_ORDERS",
@@ -20,6 +20,7 @@
   "postalCode": "050030",
   "score": -1,
   "sex": "MALE",
+  "IsPregnant": false,
   "smokingHabit": "NEVER",
   "submissionTimestamp": 1585725018170,
   "symptomStart": "",

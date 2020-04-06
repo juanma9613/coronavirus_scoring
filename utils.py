@@ -7,6 +7,7 @@ QUESTION_TABLE_PATH = "./json2score/questions.csv"
 def transform_key_value_pair(kv_pairs, key, dictionary):
     """
     Transforms a dictionary (kv_pairs) with inside dictionaries into key value pairs
+    Kind of flatten dict
     """
     if type(dictionary) is dict:
         for new_key, new_value in dictionary.items():
@@ -31,7 +32,8 @@ class Scorer():
                                      index_col='question_id', delimiter=',',
                                      dtype={'type': str, 'question': str, 
                                             'answer': str, 'score': int,
-                                            'comparison': str, 'valid_q': int}, 
+                                            'comparison': str, 'valid_q': int, 
+                                            'risk':str}, 
                                             engine='c', memory_map=True, 
                                             float_precision=None)
         return question_table
@@ -79,7 +81,7 @@ class Scorer():
         return output
 
     def score_answer(self, q_attr, answer_q, type_q):
-        if (q_attr['comparison'] == 'eq').all() and type_q == 'choice':  # For choice
+        if (q_attr['comparison'] == 'eq').all() and type_q == 'choice':
             current_score = ((q_attr['answer'] == answer_q)*1.0*q_attr['score'].astype(float)).sum()
             return current_score
         elif (q_attr['comparison'] == 'eq').all() and type_q == 'bool':
@@ -91,6 +93,9 @@ class Scorer():
                              * 1.0*q_attr['score'].astype(float)).max()
             return current_score
         else:
+            print("Couldn't score")
+            print(q_attr)
+            print(answer_q)
             return 0
 
     def score(self, questions):
@@ -101,11 +106,16 @@ class Scorer():
 
         Return:
         -------
-        scoring : float
+        scoring_result : dict
+            covid score and patient score
         """
-        scoring = 0.
+        covid_score = 0
+        patient_score = 0
+        epidemiology_count = 0
+        clinical_count = 0
         new_questions = dict()
         transform_key_value_pair(new_questions, None, questions)
+        print(new_questions)
         for q in new_questions:
             if q in self.not_score_questions:
                 pass
@@ -115,23 +125,32 @@ class Scorer():
                 if (len(q_attr))==0:
                     print("Question not in db: ", q)
                     continue
-                is_valid, type_q = self.validate(q_attr, answer_q)
-                if is_valid:
-                    scoring += self.score_answer(q_attr, answer_q, type_q)
+                if (q_attr['risk']=='patient').all():
+                    is_valid, type_q = self.validate(q_attr, answer_q)
+                    if is_valid:
+                        patient_score += self.score_answer(q_attr, answer_q, type_q)
+                    else:
+                        print("Answer not valid: ", answer_q)
+                        print("Question", q)
+                elif (q_attr['risk']=='covid').all():
+                    is_valid, type_q = self.validate(q_attr, answer_q)
+                    if is_valid:
+                        current_score = self.score_answer(q_attr, answer_q, type_q)
+                        if current_score>0:
+                            if q in self.clinical_group:
+                                clinical_count+=1
+                            if q in self.epidemiological_group:
+                                epidemiology_count+=1
+                        else:
+                            pass
+                        covid_score+=current_score
+                    else:
+                        print("Answer not valid: ", answer_q)
+                        print("Question", q)
                 else:
-                    print("Answer not valid: ", answer_q)
-                    print("Question", q)
-
-        # Special case according to doctor
-        sum_clinical=0
-        for clinical_q in self.clinical_group:
-            if new_questions[clinical_q]==True:
-                sum_clinical+=1
-        sum_epidemiology=0
-        for epidemiological_q in self.epidemiological_group:
-            if new_questions[epidemiological_q]==True:
-                sum_epidemiology+=1
-        special_addition=0
-        if sum_clinical>1 or (sum_clinical==1 and sum_epidemiology>=1):
-            special_addition+=8
-        return {'scoring': float(scoring+special_addition)}
+                    print("Risk not found, is a valid question: ", q_attr)
+        if (epidemiology_count>=1 and clinical_count>=1) or (clinical_count>=2):
+            covid_score*=3
+        print("COVID SCORE: ", covid_score)
+        print("PATIENT SCORE: ", patient_score)
+        return {'covid_score': float(covid_score), 'patient_score': float(patient_score)}

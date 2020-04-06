@@ -1,0 +1,55 @@
+question_id,type,question,answer,score,comparison,valid_q
+0,choice,age,0 - 9,1,eq,1
+0,choice,age,10 - 19,0,eq,1
+0,choice,age,20 - 29,0,eq,1
+0,choice,age,30 - 39,0,eq,1
+0,choice,age,40 - 49,0,eq,1
+0,choice,age,50 - 59,0,eq,1
+0,choice,age,60 - 69,1,eq,1
+0,choice,age,70 - 79,1,eq,1
+0,choice,age,80 - 89,1,eq,1
+0,choice,age,90 - 99,1,eq,1
+1,text,postalCode,,0,,0
+2,bool,hasBeenTested,1,0,,0
+2,choice,testResult,POSITIVE,0,,0
+2,choice,testResult,NEGATIVE,0,,0
+2,choice,testResult,PENDING,0,,0
+3,choice,sex,MALE,0,,0
+3,choice,sex,FEMALE,0,,0
+3,choice,sex,OTHER,0,,0
+4,bool,symptoms_DRY_COUGH,1,2,eq,1
+5,bool,symptoms_EXHAUSTION,1,1,eq,1
+6,bool,symptoms_FEVER,1,2,eq,1
+7,bool,symptoms_HEAVY_BREATHING,1,2,eq,1
+8,bool,symptoms_MUSCLE_ACHING,1,1,eq,1
+9,bool,symptoms_DIARRHEA,1,1,eq,1
+10,bool,symptoms_HEADACHE,1,1,eq,1
+11,bool,symptoms_SORE_THROAT,1,0,eq,1
+12,bool,symptoms_NO_TASTE,1,0,eq,1
+13,bool,symptoms_NO_SMELL,1,1,eq,1
+14,bool,symptoms_SLIME_COUGH,1,1,eq,1
+15,bool,symptoms_RUNNY_NOSE,1,1,eq,1
+16,bool,symptoms_NAUSEA_OR_VOMITING,1,1,eq,1
+17,text,symptomStart,,0,,0
+18,bool,hasBeenInContactWithInfected,1,3,eq,1
+19,float,bodyTemperature,38,1,ge,1
+20,choice,smokingHabit,CURRENTLY,1,eq,1
+20,choice,smokingHabit,USED_TO,0,eq,1
+20,choice,smokingHabit,NEVER,0,eq,1
+21,choice,isolationStatus,NOT_IN_ISOLATION,0,,0
+21,choice,isolationStatus,ISOLATION_DUE_TO_TRAVEL,0,,0
+21,choice,isolationStatus,ISOLATION_DUE_TO_CONTACT,0,,0
+21,choice,isolationStatus,ISOLATION_DUE_TO_COVID_19,0,,0
+21,choice,isolationStatus,ISOLATION_DUE_TO_GOVERNMENT_ORDERS,0,,0
+22,bool,diagnosedWithOtherConditions,1,0,,0
+23,bool,diagnosedWith_DIABETES,1,1,eq,1
+23,bool,diagnosedWith_HYPERTENSION,1,1,eq,1
+23,bool,diagnosedWith_ISCHEMICHEARTDISEASE,1,1,eq,1
+23,bool,diagnosedWith_ASTHMA,1,2,eq,1
+23,bool,diagnosedWith_CHRONICLUNGDISEASE,1,2,eq,1
+23,bool,diagnosedWith_CHRONICKIDNEYDISEASE,1,1,eq,1
+23,bool,diagnosedWith_AUTOIMMUNEDISEASE,1,1,eq,1
+24,text,submissionTimestamp,,0,,0
+25,text,phone,,0,,0
+26,text,name,,0,,0
+27,text,nationalId,,0,,0
