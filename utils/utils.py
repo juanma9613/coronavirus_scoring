@@ -30,16 +30,16 @@ class Scorer():
     def _load_questions_table(self):
         question_table = pd.read_csv(self.question_table_path, header=0,
                                      index_col='question_id', delimiter=',',
-                                     dtype={'type': str, 'question': str, 
+                                     dtype={'type': str, 'question': str,
                                             'answer': str, 'score': int,
-                                            'comparison': str, 'valid_q': int, 
-                                            'risk':str}, 
-                                            engine='c', memory_map=True, 
-                                            float_precision=None)
+                                            'comparison': str, 'valid_q': int,
+                                            'risk': str},
+                                     engine='c', memory_map=True,
+                                     float_precision=None)
         return question_table
 
     def _get_not_scoring_questions(self):
-        not_score_questions = self.question_table_complete[self.question_table_complete['valid_q']==0]
+        not_score_questions = self.question_table_complete[self.question_table_complete['valid_q'] == 0]
         return not_score_questions['question'].tolist()
 
     def validate(self, q_attr, answer_q):
@@ -98,7 +98,7 @@ class Scorer():
             print(answer_q)
             return 0
 
-    def score(self, questions):
+    def score(self, questions, transform=True):
         """
         Parameters:
         -----------
@@ -113,44 +113,47 @@ class Scorer():
         patient_score = 0
         epidemiology_count = 0
         clinical_count = 0
-        new_questions = dict()
-        transform_key_value_pair(new_questions, None, questions)
-        print(new_questions)
+        if transform:
+            new_questions = dict()
+            transform_key_value_pair(new_questions, None, questions)
+            print(new_questions)
+        else:
+            new_questions = questions
         for q in new_questions:
             if q in self.not_score_questions:
                 pass
             else:
                 answer_q = new_questions[q]
                 q_attr = self.question_table_complete.loc[self.question_table_complete['question'] == q, :]
-                if (len(q_attr))==0:
+                if (len(q_attr)) == 0:
                     print("Question not in db: ", q)
                     continue
-                if (q_attr['risk']=='patient').all():
+                if (q_attr['risk'] == 'patient').all():
                     is_valid, type_q = self.validate(q_attr, answer_q)
                     if is_valid:
                         patient_score += self.score_answer(q_attr, answer_q, type_q)
                     else:
                         print("Answer not valid: ", answer_q)
                         print("Question", q)
-                elif (q_attr['risk']=='covid').all():
+                elif (q_attr['risk'] == 'covid').all():
                     is_valid, type_q = self.validate(q_attr, answer_q)
                     if is_valid:
                         current_score = self.score_answer(q_attr, answer_q, type_q)
-                        if current_score>0:
+                        if current_score > 0:
                             if q in self.clinical_group:
-                                clinical_count+=1
+                                clinical_count += 1
                             if q in self.epidemiological_group:
-                                epidemiology_count+=1
+                                epidemiology_count += 1
                         else:
                             pass
-                        covid_score+=current_score
+                        covid_score += current_score
                     else:
                         print("Answer not valid: ", answer_q)
                         print("Question", q)
                 else:
                     print("Risk not found, is a valid question: ", q_attr)
-        if (epidemiology_count>=1 and clinical_count>=1) or (clinical_count>=2):
-            covid_score*=3
+        if (epidemiology_count >= 1 and clinical_count >= 1) or (clinical_count >= 2):
+            covid_score *= 3
         print("COVID SCORE: ", covid_score)
         print("PATIENT SCORE: ", patient_score)
         return {'covid_score': float(covid_score), 'patient_score': float(patient_score)}
