@@ -32,7 +32,7 @@ possible_answers = {'age': ['0 - 5', '6 - 11', '12 - 18', '19 - 26', '27 - 59', 
                     'postalCode': '050030',
                     'sex': ['MALE', 'FEMALE', 'OTHER'],
                     'isPregnant': [True, False],
-                    'smokingHabit': ['CURRENTLY', 'USED_TO', 'NEVER'],
+                    'smokingHabit': ['CURRENTLY', 'USED_TO', 'NEVER'], # Remove USED_TO
                     'submissionTimestamp': 1586635024840,
                     'symptomStart': ['2020-04-08', ''],
                     'symptoms_CHEST_PAIN': [True, False],

@@ -6,7 +6,7 @@ import os
 def score(event, context):
     try:
         #questions = json.loads(event['body'])
-        with open("./json2score/input.json") as fp:
+        with open("./json2score/input_2.json") as fp:
             questions = json.load(fp)
         print(questions)
         scorer = Scorer()
