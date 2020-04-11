@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-QUESTION_TABLE_PATH = "./json2score/questions.csv"
+QUESTION_TABLE_PATH = "./json2score/questions_final.csv"
 
 
 def transform_key_value_pair(kv_pairs, key, dictionary):
@@ -31,7 +31,7 @@ class Scorer():
         question_table = pd.read_csv(self.question_table_path, header=0,
                                      index_col='question_id', delimiter=',',
                                      dtype={'type': str, 'question': str,
-                                            'answer': str, 'score': int,
+                                            'answer': str, 'score': float,
                                             'comparison': str, 'valid_q': int,
                                             'risk': str},
                                      engine='c', memory_map=True,
@@ -156,4 +156,5 @@ class Scorer():
             covid_score *= 3
         print("COVID SCORE: ", covid_score)
         print("PATIENT SCORE: ", patient_score)
-        return {'covid_score': float(covid_score), 'patient_score': float(patient_score)}
+        return {'covid_score': float(covid_score),
+                'patient_score': float(patient_score)}

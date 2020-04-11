@@ -1,11 +1,14 @@
 import json
 import traceback
 from utils.utils import Scorer
-
+import os
 
 def score(event, context):
     try:
-        questions = json.loads(event['body'])
+        #questions = json.loads(event['body'])
+        with open("./json2score/input.json") as fp:
+            questions = json.load(fp)
+        print(questions)
         scorer = Scorer()
         scoring_result = scorer.score(questions)
         response = {

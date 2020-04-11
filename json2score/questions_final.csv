@@ -13,7 +13,7 @@ question_id,type,question,answer,score,comparison,valid_q,risk
 3,choice,sex,MALE,0,,0,patient
 3,choice,sex,FEMALE,0,,0,patient
 3,choice,sex,OTHER,0,,0,patient
-4,bool,IsPregnant,1,1,eq,1,patient
+4,bool,isPregnant,1,1,eq,1,patient
 5,bool,symptoms_DRY_COUGH,1,2,eq,1,covid
 5,bool,symptoms_EXHAUSTION,1,1,eq,1,covid
 5,bool,symptoms_FEVER,1,2,eq,1,covid
@@ -23,10 +23,11 @@ question_id,type,question,answer,score,comparison,valid_q,risk
 5,bool,symptoms_HEADACHE,1,1,eq,1,covid
 5,bool,symptoms_SORE_THROAT,1,0,eq,1,covid
 5,bool,symptoms_NO_TASTE,1,1,eq,1,covid
-5,bool,symptoms_NO_SMELL,1,1,eq,1,covid
+5,bool,symptoms_NO_SMELL,1,0.5,eq,1,covid
 5,bool,symptoms_SLIME_COUGH,1,1,eq,1,covid
 5,bool,symptoms_RUNNY_NOSE,1,-1,eq,1,covid
 5,bool,symptoms_NAUSEA_OR_VOMITING,1,1,eq,1,covid
+5,bool,symptoms_CHEST_PAIN,1,1,eq,1,covid
 6,text,symptomStart,,0,,0,
 7,bool,hasBeenInContactWithInfected,1,3,eq,1,covid
 8,float,bodyTemperature,38,1,ge,1,covid
@@ -46,7 +47,10 @@ question_id,type,question,answer,score,comparison,valid_q,risk
 11,bool,diagnosedWith_AUTOIMMUNEDISEASE,1,1,eq,1,patient
 11,bool,diagnosedWith_IMMUNOSUPRESSION,1,1,eq,1,patient
 11,bool,diagnosedWith_CORONARYHEARTDISEASE,1,1,eq,1,patient
+11,bool,diagnosedWith_VIH,1,1,eq,1,patient
+11,bool,diagnosedWith_CANCER,1,1,eq,1,patient
+11,bool,diagnosedWith_OBESITY_OR_MALNUTRITION,1,1,eq,1,patient
 12,text,submissionTimestamp,,0,,0,
 13,text,phone,,0,,0,
 14,text,name,,0,,0,
-15,text,nationalId,,0,,0,
+15,text,videoUrl,,0,,0,

@@ -20,7 +20,7 @@
   "postalCode": "050030",
   "score": -1,
   "sex": "MALE",
-  "IsPregnant": false,
+  "isPregnant": false,
   "smokingHabit": "NEVER",
   "submissionTimestamp": 1585725018170,
   "symptomStart": "",
