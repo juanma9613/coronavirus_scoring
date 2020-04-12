@@ -22,7 +22,7 @@ question_id,type,question,answer,score,comparison,valid_q,risk
 5,bool,symptoms_DIARRHEA,1,1,eq,1,covid
 5,bool,symptoms_HEADACHE,1,1,eq,1,covid
 5,bool,symptoms_SORE_THROAT,1,0,eq,1,covid
-5,bool,symptoms_NO_TASTE,1,1,eq,1,covid
+5,bool,symptoms_NO_TASTE,1,0,eq,1,covid
 5,bool,symptoms_NO_SMELL,1,0.5,eq,1,covid
 5,bool,symptoms_SLIME_COUGH,1,1,eq,1,covid
 5,bool,symptoms_RUNNY_NOSE,1,-1,eq,1,covid

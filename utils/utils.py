@@ -116,7 +116,6 @@ class Scorer():
         if transform:
             new_questions = dict()
             transform_key_value_pair(new_questions, None, questions)
-            print(new_questions)
         else:
             new_questions = questions
         for q in new_questions:
@@ -154,7 +153,22 @@ class Scorer():
                     print("Risk not found, is a valid question: ", q_attr)
         if (epidemiology_count >= 1 and clinical_count >= 1) or (clinical_count >= 2):
             covid_score *= 3
-        print("COVID SCORE: ", covid_score)
-        print("PATIENT SCORE: ", patient_score)
+
+        if covid_score <= 4:
+            covid_risk = 'low'
+        elif covid_score > 4 and covid_score < 10:
+            covid_risk = 'medium'
+        else:
+            covid_risk = 'high'
+
+        if patient_score == 0:
+            patient_risk = 'low'
+        elif patient_score == 1:
+            patient_risk = 'medium'
+        else:
+            patient_risk = 'high'
+
         return {'covid_score': float(covid_score),
-                'patient_score': float(patient_score)}
+                'covid_risk': covid_risk,
+                'patient_score': float(patient_score),
+                'patient_risk': patient_risk}

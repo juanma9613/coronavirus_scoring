@@ -51,6 +51,11 @@ possible_answers = {'age': ['0 - 5', '6 - 11', '12 - 18', '19 - 26', '27 - 59', 
                     'symptoms_SORE_THROAT': [True, False],
                     'testResult': ['POSITIVE', 'NEGATIVE', 'PENDING', 'UNDEFINED'],
                     'videoUrl': ''}
+""" 
+Local json
+with open("./json2score/input_2.json") as fp:
+    questions = json.load(fp)
+"""
 total_tests = 2
 tests = {}
 scorer = Scorer()
