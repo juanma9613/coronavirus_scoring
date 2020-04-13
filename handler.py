@@ -1,6 +1,7 @@
 import json
 import traceback
-from utils import Scorer
+from utils.utils import Scorer
+import os
 
 def score(event, context):
     try:

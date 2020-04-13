@@ -3,6 +3,10 @@ venv/
 node_modules/
 .requirements.zip
 .DS_Store
+
+#Personal
+testing/
+
 # Distribution / packaging
 .Python
 *.pyc

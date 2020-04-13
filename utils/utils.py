@@ -1,12 +1,13 @@
 import os
 import pandas as pd
 
-QUESTION_TABLE_PATH = "./json2score/questions.csv"
+QUESTION_TABLE_PATH = "./json2score/questions_final.csv"
 
 
 def transform_key_value_pair(kv_pairs, key, dictionary):
     """
     Transforms a dictionary (kv_pairs) with inside dictionaries into key value pairs
+    Kind of flatten dict
     """
     if type(dictionary) is dict:
         for new_key, new_value in dictionary.items():
@@ -29,15 +30,16 @@ class Scorer():
     def _load_questions_table(self):
         question_table = pd.read_csv(self.question_table_path, header=0,
                                      index_col='question_id', delimiter=',',
-                                     dtype={'type': str, 'question': str, 
-                                            'answer': str, 'score': int,
-                                            'comparison': str, 'valid_q': int}, 
-                                            engine='c', memory_map=True, 
-                                            float_precision=None)
+                                     dtype={'type': str, 'question': str,
+                                            'answer': str, 'score': float,
+                                            'comparison': str, 'valid_q': int,
+                                            'risk': str},
+                                     engine='c', memory_map=True,
+                                     float_precision=None)
         return question_table
 
     def _get_not_scoring_questions(self):
-        not_score_questions = self.question_table_complete[self.question_table_complete['valid_q']==0]
+        not_score_questions = self.question_table_complete[self.question_table_complete['valid_q'] == 0]
         return not_score_questions['question'].tolist()
 
     def validate(self, q_attr, answer_q):
@@ -79,7 +81,7 @@ class Scorer():
         return output
 
     def score_answer(self, q_attr, answer_q, type_q):
-        if (q_attr['comparison'] == 'eq').all() and type_q == 'choice':  # For choice
+        if (q_attr['comparison'] == 'eq').all() and type_q == 'choice':
             current_score = ((q_attr['answer'] == answer_q)*1.0*q_attr['score'].astype(float)).sum()
             return current_score
         elif (q_attr['comparison'] == 'eq').all() and type_q == 'bool':
@@ -91,9 +93,12 @@ class Scorer():
                              * 1.0*q_attr['score'].astype(float)).max()
             return current_score
         else:
+            print("Couldn't score")
+            print(q_attr)
+            print(answer_q)
             return 0
 
-    def score(self, questions):
+    def score(self, questions, transform=True):
         """
         Parameters:
         -----------
@@ -101,37 +106,69 @@ class Scorer():
 
         Return:
         -------
-        scoring : float
+        scoring_result : dict
+            covid score and patient score
         """
-        scoring = 0.
-        new_questions = dict()
-        transform_key_value_pair(new_questions, None, questions)
+        covid_score = 0
+        patient_score = 0
+        epidemiology_count = 0
+        clinical_count = 0
+        if transform:
+            new_questions = dict()
+            transform_key_value_pair(new_questions, None, questions)
+        else:
+            new_questions = questions
         for q in new_questions:
             if q in self.not_score_questions:
                 pass
             else:
                 answer_q = new_questions[q]
                 q_attr = self.question_table_complete.loc[self.question_table_complete['question'] == q, :]
-                if (len(q_attr))==0:
+                if (len(q_attr)) == 0:
                     print("Question not in db: ", q)
                     continue
-                is_valid, type_q = self.validate(q_attr, answer_q)
-                if is_valid:
-                    scoring += self.score_answer(q_attr, answer_q, type_q)
+                if (q_attr['risk'] == 'patient').all():
+                    is_valid, type_q = self.validate(q_attr, answer_q)
+                    if is_valid:
+                        patient_score += self.score_answer(q_attr, answer_q, type_q)
+                    else:
+                        print("Answer not valid: ", answer_q)
+                        print("Question", q)
+                elif (q_attr['risk'] == 'covid').all():
+                    is_valid, type_q = self.validate(q_attr, answer_q)
+                    if is_valid:
+                        current_score = self.score_answer(q_attr, answer_q, type_q)
+                        if current_score > 0:
+                            if q in self.clinical_group:
+                                clinical_count += 1
+                            if q in self.epidemiological_group:
+                                epidemiology_count += 1
+                        else:
+                            pass
+                        covid_score += current_score
+                    else:
+                        print("Answer not valid: ", answer_q)
+                        print("Question", q)
                 else:
-                    print("Answer not valid: ", answer_q)
-                    print("Question", q)
+                    print("Risk not found, is a valid question: ", q_attr)
+        if (epidemiology_count >= 1 and clinical_count >= 1) or (clinical_count >= 2):
+            covid_score *= 3
 
-        # Special case according to doctor
-        sum_clinical=0
-        for clinical_q in self.clinical_group:
-            if new_questions[clinical_q]==True:
-                sum_clinical+=1
-        sum_epidemiology=0
-        for epidemiological_q in self.epidemiological_group:
-            if new_questions[epidemiological_q]==True:
-                sum_epidemiology+=1
-        special_addition=0
-        if sum_clinical>1 or (sum_clinical==1 and sum_epidemiology>=1):
-            special_addition+=8
-        return {'scoring': float(scoring+special_addition)}
+        if covid_score <= 4:
+            covid_risk = 'low'
+        elif covid_score > 4 and covid_score < 10:
+            covid_risk = 'medium'
+        else:
+            covid_risk = 'high'
+
+        if patient_score == 0:
+            patient_risk = 'low'
+        elif patient_score == 1:
+            patient_risk = 'medium'
+        else:
+            patient_risk = 'high'
+
+        return {'covid_score': float(covid_score),
+                'covid_risk': covid_risk,
+                'patient_score': float(patient_score),
+                'patient_risk': patient_risk}
