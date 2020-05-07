@@ -19,7 +19,8 @@ package:
 provider:
   name: aws
   runtime: python3.6
-  profile: coronavirus
+  profile: 5vid-eb-deployment
+  stage: prod
 
 functions:
   score:
