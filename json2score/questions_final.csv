@@ -4,7 +4,7 @@ question_id,type,question,answer,score,comparison,valid_q,risk
 0,choice,age,12 - 18,0,eq,1,patient
 0,choice,age,19 - 26,0,eq,1,patient
 0,choice,age,27 - 59,0,eq,1,patient
-0,choice,age,>60,1,eq,1,patient
+0,choice,age,>=60,1,eq,1,patient
 1,text,postalCode,,0,,0,
 2,bool,hasBeenTested,1,0,,0,
 2,choice,testResult,POSITIVE,0,,0,
